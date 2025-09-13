@@ -3,7 +3,7 @@ class Book
     @title = title
     @author = author
     $books << {title: @title, author: @author}
-    puts "press Enter key to continue"
+    puts Messages::DATA['enter']
     b  = gets.chomp
     Librarian.menu if (b)
   end
@@ -18,6 +18,60 @@ class Book
     puts ""
   end
 
+  def self.update_book
+     puts Messages::DATA['search']
+    way = gets.chomp.to_i
+    case way
+    when 1
+      puts Messages::DATA['title'].center(100,'-')
+      puts Messages::DATA['old_title']
+      inp = gets.chomp
+      exist_title = $books.find{|x| x[:title] == inp}
+      if exist_title
+        puts "<= Update Title=>".center(100,'-')
+        print "New Title :- "
+        title = gets.chomp
+        exist_title[:title] = title
+      elsif
+        puts Messages::DATA['no_book']
+      end
+    when 2
+      puts Messages::DATA['author'].center(100,'-')
+      print Messages::DATA['old_author']
+      inp = gets.chomp
+      exist_author = $books.find{|x| x[:author] == inp}
+      if exist_author
+        puts "<= Update Author=>".center(100,'-')
+        print "New Author :- "
+        author = gets.chomp
+        exist_author[:author] = author
+      else
+        puts Messages::DATA['no_book']
+      end
+    when 3
+      puts "Search By any of them"
+      puts "Old title and Author :- "
+      inp = gets.chomp
+      exist_book = $books.find{|x| x[:title] == inp || x[:author] == inp}
+
+      if exist_book
+        puts "<= Update Title & Author =>".center(100,'-')
+        print "New title :- "
+        title = gets.chomp
+        exist_book[:title] = title
+        print "New Author :- "
+        author = gets.chomp
+        exist_book[:author] = author
+      else
+        puts Messages::DATA['no_book']
+      end
+    when 4
+      Librarian.menu
+    else 
+      puts "Invalid Digits:- Enter digits between 1-4"
+    end
+  end
+
   def self.enrolled_books
     puts ""
     puts "#{$book_allot.count} Enrolled Books".center(100,"=")
@@ -30,46 +84,54 @@ class Book
   
   def self.search_book
     puts "<= Searching =>".center(100,'-')
-    puts "which method would you prefer
-    1. Title.
-    2. Author.
-    3. Title and Author.
-    4. Back."
+    puts Messages::DATA['no_book']
     way = gets.chomp.gsub(/\D/, '').to_i
-    if way == 1
-      puts "<= Title Method =>".center(100,'-')
+    case way 
+    when 1
+      puts Messages::DATA['title'].center(100,'-')
       self.search_by_title
-      puts "Press Enter key to continue" 
+      puts Messages::DATA['enter']
       b = gets.chomp
-      # Librarian.menu if b
-    elsif way == 2
-      puts "<= Author Method =>".center(100,'-')
+    when 2
+      puts Messages::DATA['author'].center(100,'-')
       self.search_by_author
-      puts "Press Enter key to continue" 
+      puts Messages::DATA['enter']
       b = gets.chomp
-      # Librarian.menu if b
-    elsif way == 3
+    when 3
       puts "Search By any of them".center(100,'-')
-      self.search_by_title_author
-      puts "Press Enter key to continue" 
+      self.search_by_both
+      puts Messages::DATA['enter'] 
       b = gets.chomp
-      # Librarian.menu if b
-    else
+    when 4
       puts "back"
-      # Librarian.menu
     end
   end
 
-
-  def self.search_by_title
+  def self.search_by_both
     3.times do |x|
-      print "Title :- "
+      print "Enter Title or Author :- "
       search = gets.chomp.strip
       book = $books.find {|x| x[:title] == search || x[:author] == search}
       if book.nil?
-        puts "Book not found"
+        puts Messages::DATA['no_book']
       else
-        puts "Book you are looking for is "
+        puts Messages::DATA['book_looking']
+
+        book.each {|k,v| puts "#{k}  => #{v}"}
+        break
+      end
+    end
+  end
+
+  def self.search_by_title
+    3.times do |x|
+      print Messages::DATA['ttl']
+      search = gets.chomp.strip
+      book = $books.find {|x| x[:title] == search}
+      if book.nil?
+        puts Messages::DATA['no_book']
+      else
+        puts Messages::DATA['book_looking']
 
         book.each {|k,v| puts "#{k}  => #{v}"}
         break
@@ -83,9 +145,9 @@ class Book
       search = gets.chomp.strip
       book = $books.find {|x| x[:title] == search}
       if book.nil?
-        puts "Book not found"
+        puts Messages::DATA['no_book']
       else
-        puts "Book you are looking for is "
+        puts Messages::DATA['book_looking']
 
         book.each {|k,v| puts "#{k}  => #{v}"}
         break
@@ -95,13 +157,13 @@ class Book
 
   def self.search_by_author
     3.times do |x|
-      print "Author :- "
+      print Messages::DATA['authr']
       search = gets.chomp.strip
       book = $books.find {|x| x[:author] == search}
       if book.nil?
-        puts "Book not found"
+        puts Messages::DATA['no_book']
       else
-        puts "Book you are looking for is "
+        puts Messages::DATA['book_looking']
         book.each {|k,v| puts "#{k}  => #{v}"}
         break
       end
@@ -115,7 +177,7 @@ class Book
       book = $books.find {|x| x[:title]== title}
        
       if book.nil?
-        puts "Item not found please enter correct title"
+        puts Messages::DATA['no_book']
       else
         $book_allot << book
         $books.delete(book)
@@ -123,7 +185,7 @@ class Book
         break        
       end
     end
-    puts "Press Enter key to go Home".center(100,'-')
+    puts Messages::DATA['enter'].center(100,'-')
     b = gets.chomp
     Student.menu if b
  end
@@ -135,7 +197,7 @@ class Book
       book = $book_allot.find {|x| x[:title]== title}
 
       if book.nil?
-        puts "Item not fount please enter correct title"
+        puts Messages::DATA['no_book']
       else
         $books << book
         $book_allot.delete(book)
@@ -143,8 +205,45 @@ class Book
         break
       end
     end 
-      puts "Press Enter key to continue".center(100,'-')
+      puts Messages::DATA['enter'].center(100,'-')
       b = gets.chomp
       Student.menu if b
+  end
+
+  def self.deletebook
+    puts Messages::DATA['search']
+    way = gets.chomp.gsub(/\D/,"").to_i
+    if way == 1
+      puts Messages::DATA['title'].center(100,'-')
+      print Messages::DATA['title']
+      inp = gets.chomp
+      exist_title = $books.find{|x| x[:title] == inp}
+      puts exist_title
+      if exist_title
+        $books.delete(exist_title)
+        puts Messages::DATA['enter']
+        b  = gets.chomp
+        Librarian.menu if (b)
+      else
+        puts Messages::DATA['no_book']
+      end
+    elsif way == 2
+      puts Messages::DATA['author'].center(100,'-')
+      print Messages::DATA['old_author']
+      inp = gets.chomp
+      exist_author = $books.find{|x| x[:author] == inp}
+      puts exist_author
+      if exist_author
+        $books.delete(exist_author)
+        puts Messages::DATA['enter']
+        b  = gets.chomp
+        Librarian.menu if (b)
+      else
+        puts Messages::DATA['no_book']
+        Librarian.menu
+      end
+    elsif way ==3
+      Librarian.menu
+    end
   end
 end

@@ -51,7 +51,7 @@ end
 =end
 
 
-require_relative "user"
+require_relative "loader"
 
 
 $users = []

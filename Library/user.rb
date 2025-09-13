@@ -1,6 +1,5 @@
-# require_relative "book"
-# require_relative "loader"
-# require_relative 'user'
+# require_relative 'loader'
+
 
 class User
   def main
@@ -8,31 +7,15 @@ class User
     value = welcome
 
     case value
-    when 1 # New Student
+    when 1
       sign_up
-    when 2 # New Librarian
+    when 2
       sign_in
-    # when 3 # Existing librarian
-    #   Librarian.existing_librarian
-    #   User.new.main
-    # when 4 # Existing student
-    #   3.times do |x|
-    #     x = Student.existing_student
-    #     if x.nil?
-    #       puts "Invalid Mail and Password\n".center(100,"-").upcase
-    #       # existing_student
-    #     else
-    #       Student.menu
-    #       break
-    #     end
-    #   end
-    #   User.new.main
-    #   # Student.menu
     when 3
-      puts "You entered Exit See you soon"
+      puts Messages::DATA['exit']
       exit
     else
-      puts "please enter correct digit between 1-4"
+      puts Messages::DATA['invalid']
       User.new.main
     end
   end
@@ -42,13 +25,13 @@ class User
   end
 
   def sign_in
-    print "Enter Mail :- "
+    print Messages::DATA['email']
     email = gets.chomp
-    print "Enter Password :- "
+    print Messages::DATA['password']
     password = gets.chomp
     user = $users.find {|x| x[:email] == email && x[:password] == password}
     if user.nil?
-      puts "Invalid Credentials"
+      puts Messages::DATA['invalid_credential']
       sign_in
     else
       Student.menu
@@ -56,11 +39,11 @@ class User
   end
 
   def sign_up
-    print "Enter Mail :- "
+    print Messages::DATA['email']
     email = gets.chomp
-    print "Enter Password :- "
+    print Messages::DATA['password']
     password = gets.chomp
-    print "Student/Librarian ? :- "
+    print Messages::DATA['student_librarian_message']
     type = gets.chomp
 
     if type == "Student"
@@ -70,7 +53,7 @@ class User
       Librarian.new(email,password).save
       Librarian.menu
     else
-      puts "Select between Student and Librarian Only."
+      puts Messages::DATA['student_librarian_invalid_message']
       sign_up
     end
   end
@@ -78,11 +61,13 @@ class User
   protected
   def welcome
     # User Authorization
-    puts "Welcome to Library".center(100,'-')
-    puts "
-      1.Sign up
-      2.Sign In
-      3.Exit?"
+    puts Messages::DATA['welcome'].center(100, '-')
+    puts Messages::DATA['main_menu']
+    # puts "Welcome to Library".center(100,'-')
+    # puts "
+    #   1.Sign up
+    #   2.Sign In
+    #   3.Exit?"
 
     input = gets.chomp.gsub(/\D/, '').to_i
     # puts "You entered #{input}"
@@ -96,7 +81,3 @@ class User
   end
 
 end
-
-
-require_relative 'student'
-require_relative 'librarian'

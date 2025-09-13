@@ -1,0 +1,55 @@
+# =>                User Messages
+welcome: "Welcome to Library"
+main_menu: |
+  1. Sign up
+  2. Sign In
+  3. Exit?
+exit: "You entered Exit See you soon"
+invalid: "please enter correct digit"
+invalid_credential: "Invalid Credentials"
+email: "Enter Mail :- "
+password: "Enter Password :- "
+student_librarian_message: "Student/Librarian ? :- "
+student_librarian_invalid_message: "Select between Student and Librarian Only."
+
+
+# =>                        Librarian Messages
+librarian_dashboard: "Logged in as Librarian\n
+    1. Create Book.\n
+    2. Search Book.\n
+    3. All books.\n
+    4. Update book.\n
+    5. Delete Book.\n
+    6. Log-Out.\n
+    7. Exit."
+book_title: "Book Title :- "
+book_author: "Book Author :- "
+create_book: "<= Create Book=>"
+delete_book: "<= Delete Book =>"
+loged_out: "Successfully Logged Out"
+
+# =>                      Student Messages
+student_dashboard: "Logged in as Student\n
+    1. All Books.\n
+    2. My Books.\n
+    3. Search Book.\n
+    4. Enroll.\n
+    5. Deposit.\n
+    6. Log-Out.\n
+    7. Exit."
+
+enter: "press Enter key to continue"
+
+search: "which method would you prefer
+    1. Title.
+    2. Author.
+    3. Both(Title & Author).
+    4. Back."
+no_book: "No Book Found by that author"
+ttl: "Title :- "
+title: "<= Title Method =>"
+old_title: "Old Title :- "
+authr: "Author :- "
+author: "<= Author Method =>"
+old_author: "Old Author :- "
+book_looking: "Book you are looking for is "
