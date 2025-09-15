@@ -30,11 +30,17 @@ class User
     print Messages::DATA['password']
     password = gets.chomp
     user = $users.find {|x| x[:email] == email && x[:password] == password}
-    if user.nil?
-      puts Messages::DATA['invalid_credential']
-      sign_in
-    else
-      Student.menu
+      
+    3.times do |x|
+      puts "inside times #{x}"
+      print Messages::DATA['total_attempt']
+      puts "#{3-x} attempts left"
+      if user.nil?
+        puts Messages::DATA['invalid_credential']
+        sign_in
+      else
+        Student.menu
+      end
     end
   end
 
@@ -63,14 +69,7 @@ class User
     # User Authorization
     puts Messages::DATA['welcome'].center(100, '-')
     puts Messages::DATA['main_menu']
-    # puts "Welcome to Library".center(100,'-')
-    # puts "
-    #   1.Sign up
-    #   2.Sign In
-    #   3.Exit?"
-
     input = gets.chomp.gsub(/\D/, '').to_i
-    # puts "You entered #{input}"
     input
   end
 
