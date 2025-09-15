@@ -12,7 +12,6 @@ password: "Enter Password :- "
 student_librarian_message: "Student/Librarian ? :- "
 student_librarian_invalid_message: "Select between Student and Librarian Only."
 
-
 # =>                        Librarian Messages
 librarian_dashboard: "Logged in as Librarian\n
     1. Create Book.\n
@@ -40,10 +39,10 @@ student_dashboard: "Logged in as Student\n
 
 enter: "press Enter key to continue"
 
-search: "which method would you prefer
-    1. Title.
-    2. Author.
-    3. Both(Title & Author).
+search: "which method would you prefer\n
+    1. Title.\n
+    2. Author.\n
+    3. Both(Title & Author).\n
     4. Back."
 no_book: "No Book Found by that author"
 ttl: "Title :- "
@@ -53,3 +52,7 @@ authr: "Author :- "
 author: "<= Author Method =>"
 old_author: "Old Author :- "
 book_looking: "Book you are looking for is "
+both: "<= Search By any of them =>"
+input_both: "Enter Title or Author :- "
+total_attempt: "You have "
+attempt_num: "You are on "

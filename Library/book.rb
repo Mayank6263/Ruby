@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Book
   def self.create_book(title,author)
     @title = title
@@ -84,7 +86,7 @@ class Book
   
   def self.search_book
     puts "<= Searching =>".center(100,'-')
-    puts Messages::DATA['no_book']
+    puts Messages::DATA['search']
     way = gets.chomp.gsub(/\D/, '').to_i
     case way 
     when 1
@@ -98,7 +100,7 @@ class Book
       puts Messages::DATA['enter']
       b = gets.chomp
     when 3
-      puts "Search By any of them".center(100,'-')
+      puts .center(100,'-')
       self.search_by_both
       puts Messages::DATA['enter'] 
       b = gets.chomp
@@ -108,8 +110,8 @@ class Book
   end
 
   def self.search_by_both
-    3.times do |x|
-      print "Enter Title or Author :- "
+    3.times do
+      print Messages::DATA['input_both']
       search = gets.chomp.strip
       book = $books.find {|x| x[:title] == search || x[:author] == search}
       if book.nil?
@@ -215,15 +217,13 @@ class Book
     way = gets.chomp.gsub(/\D/,"").to_i
     if way == 1
       puts Messages::DATA['title'].center(100,'-')
-      print Messages::DATA['title']
+      print Messages::DATA['ttl']
       inp = gets.chomp
       exist_title = $books.find{|x| x[:title] == inp}
       puts exist_title
       if exist_title
         $books.delete(exist_title)
         puts Messages::DATA['enter']
-        b  = gets.chomp
-        Librarian.menu if (b)
       else
         puts Messages::DATA['no_book']
       end
@@ -236,14 +236,28 @@ class Book
       if exist_author
         $books.delete(exist_author)
         puts Messages::DATA['enter']
-        b  = gets.chomp
-        Librarian.menu if (b)
       else
         puts Messages::DATA['no_book']
         Librarian.menu
       end
-    elsif way ==3
-      Librarian.menu
+    elsif way == 3
+      3.times do |x|
+        # puts "You have #{3-x}, You are on #{x+1} attempt"
+        print Messages::DATA["total_attempt"]
+        print "#{ 3-x } attempts. "
+        # puts Messages::DATA['attempt_num'] + x+1 + " attempts. "
+        puts Messages::DATA['both'].center(100,'-')
+        print Messages::DATA['input_both']
+        inp = gets.chomp
+        exist_author = $books.find{|x| x[:author] == inp}
+        puts exist_author
+        if exist_author
+          $books.delete(exist_author)
+          puts Messages::DATA['enter']
+        else
+          puts Messages::DATA['no_book']
+        end
+      end
     end
   end
 end
