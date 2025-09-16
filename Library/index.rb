@@ -51,13 +51,4 @@ end
 =end
 
 
-require_relative "loader"
-
-
-$users = []
-# $data = [$users]
-$books = [{:id=> 1, :title=>"innovation",:author=>"innovator"},{:id=> 2, :title=>"discipline",:author=>"discipline"},]
-$book_allot = [{:title=>"demo",:author=>"demo"}]
-
-User.new.main
 
