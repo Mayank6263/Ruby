@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Book
   def self.create_book(title,author)
     @title = title
