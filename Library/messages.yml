@@ -7,6 +7,7 @@ main_menu: |
 exit: "You entered Exit See you soon"
 invalid: "please enter correct digit"
 invalid_credential: "Invalid Credentials"
+name: "Enter Name :- "
 email: "Enter Mail :- "
 password: "Enter Password :- "
 student_librarian_message: "Student/Librarian ? :- "

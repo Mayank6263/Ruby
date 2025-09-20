@@ -1,3 +1,4 @@
+require_relative "loader"
 class User
   @@users = []  
 
@@ -53,23 +54,22 @@ class User
     self.email =~ /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
   end
 
-  # def main
-  #   create_demo_user_data
-  #   value = welcome
-
-  #   case value
-  #   when 1
-  #     sign_up
-  #   when 2
-  #     sign_in
-  #   when 3
-  #     puts Messages::DATA['exit']
-  #     exit
-  #   else
-  #     puts Messages::DATA['invalid']
-  #     User.new.main
-  #   end
-  # end
+  def self.main
+    # create_demo_user_data
+    value = welcome
+    case value
+    when 1
+      sign_up
+    when 2
+      sign_in
+    when 3
+      puts Messages::DATA['exit']
+      exit
+    else
+      puts Messages::DATA['invalid']
+      User.new.main
+    end
+  end
 
   # # def save
   # #   $users << {email: @email, password: @password, type: @type}
@@ -95,34 +95,36 @@ class User
   #   end
   # end
 
-  # def sign_up
-  #   print Messages::DATA['email']
-  #   email = gets.chomp
-  #   print Messages::DATA['password']
-  #   password = gets.chomp
-  #   print Messages::DATA['student_librarian_message']
-  #   type = gets.chomp
+  def self.sign_up
+    print Messages::DATA['name']
+    username = gets.chomp
+    print Messages::DATA['email']
+    email = gets.chomp
+    print Messages::DATA['password']
+    password = gets.chomp
+    print Messages::DATA['student_librarian_message']
+    type = gets.chomp
 
-  #   if type == "Student"
-  #     Student.new(email,password).save
-  #     Student.menu
-  #   elsif type == "Librarian"
-  #     Librarian.new(email,password).save
-  #     Librarian.menu
-  #   else
-  #     puts Messages::DATA['student_librarian_invalid_message']
-  #     sign_up
-  #   end
-  # end
+    if type == "Student"
+      student.new(username, email, password).save
+      Student.menu
+    elsif type == "Librarian"
+      Librarian.new(username, email, password).save
+      Librarian.menu
+    else
+      puts Messages::DATA['student_librarian_invalid_message']
+      sign_up
+    end
+  end
 
   # protected
-  # def welcome
-  #   # User Authorization
-  #   puts Messages::DATA['welcome'].center(100, '-')
-  #   puts Messages::DATA['main_menu']
-  #   input = gets.chomp.gsub(/\D/, '').to_i
-  #   input
-  # end
+  def self.welcome
+    # User Authorization
+    puts Messages::DATA['welcome'].center(100, '-')
+    puts Messages::DATA['main_menu']
+    input = gets.chomp.gsub(/\D/, '').to_i
+    input
+  end
 
   # def create_demo_user_data
   #   Student.new('mayank','password').save
