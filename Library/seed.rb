@@ -1,9 +1,9 @@
-require_relative "librarian"
+require_relative "loader"
 require "byebug"
 
 class Seed
   def self.load_users
-    l1 = Librarian.new(name: 'john', email: 'johnyopmail.com', password: 'John@1234')
+    l1 = Librarian.new(name: 'john', email: 'john@yopmail.com', password: 'John@1234')
     # byebug
     unless l1.save
       puts l1.errors.join
@@ -15,5 +15,5 @@ Seed.load_users
 
 
 # byebug
-
-# puts User.all 
+User.main
+puts User.all

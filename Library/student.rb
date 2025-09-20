@@ -1,4 +1,7 @@
 class Student < User
+  def initialize(name:, email:, password:)
+    super
+  end
   # def self.menu
   #   puts Messages::DATA['student_dashboard']
   #   value = gets.chomp.gsub(/\D/, '').to_i
