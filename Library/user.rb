@@ -67,33 +67,12 @@ class User
       exit
     else
       puts Messages::DATA['invalid']
-      User.new.main
+      User.main
     end
   end
 
-  # # def save
-  # #   $users << {email: @email, password: @password, type: @type}
-  # # end
 
-  # def sign_in
-  #   print Messages::DATA['email']
-  #   email = gets.chomp
-  #   print Messages::DATA['password']
-  #   password = gets.chomp
-  #   user = $users.find {|x| x[:email] == email && x[:password] == password}
-      
-  #   3.times do |x|
-  #     puts "inside times #{x}"
-  #     print Messages::DATA['total_attempt']
-  #     puts "#{3-x} attempts left"
-  #     if user.nil?
-  #       puts Messages::DATA['invalid_credential']
-  #       sign_in
-  #     else
-  #       Student.menu
-  #     end
-  #   end
-  # end
+
 
   def self.sign_up
     print Messages::DATA['name']
@@ -106,16 +85,47 @@ class User
     type = gets.chomp
 
     if type == "Student"
-      student.new(username, email, password).save
+      Student.new(name: username, email: email, password: password).save
       Student.menu
     elsif type == "Librarian"
-      Librarian.new(username, email, password).save
+      Librarian.new(name: username, email: email, password: password).save
       Librarian.menu
     else
       puts Messages::DATA['student_librarian_invalid_message']
       sign_up
     end
   end
+
+def self.sign_in
+  3.times do |attempt|
+    print Messages::DATA['email']
+    email = gets.chomp
+    print Messages::DATA['password']
+    password = gets.chomp
+
+    user = User.all.find { |u| u.email == email && u.password == password }
+
+    if user
+      puts "Login successful. Welcome, #{user.name}!"
+
+      if user.student?
+        Student.menu
+      elsif user.librarian?
+        Librarian.menu
+      else
+        puts "Unknown user type."
+      end
+
+      return # Exit after successful login
+    else
+      remaining_attempts = 2 - attempt
+      puts "Invalid credentials. Attempts left: #{remaining_attempts}"
+    end
+  end
+
+  puts "Too many failed login attempts. Exiting..."
+  exit
+end
 
   # protected
   def self.welcome
