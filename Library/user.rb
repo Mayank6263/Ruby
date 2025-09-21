@@ -106,24 +106,24 @@ def self.sign_in
     user = User.all.find { |u| u.email == email && u.password == password }
 
     if user
-      puts "Login successful. Welcome, #{user.name}!"
+      puts Messages::DATA['login'], "#{user.name}!"
 
       if user.student?
         Student.menu
       elsif user.librarian?
         Librarian.menu
       else
-        puts "Unknown user type."
+        puts Messages::DATA['unknown']
       end
 
-      return # Exit after successful login
+      return
     else
       remaining_attempts = 2 - attempt
-      puts "Invalid credentials. Attempts left: #{remaining_attempts}"
+      puts  Messages::DATA['invalid_credential'], " #{remaining_attempts}"
     end
   end
 
-  puts "Too many failed login attempts. Exiting..."
+  puts Messages::DATA['too_many']
   exit
 end
 
@@ -135,11 +135,5 @@ end
     input = gets.chomp.gsub(/\D/, '').to_i
     input
   end
-
-  # def create_demo_user_data
-  #   Student.new('mayank','password').save
-  #   Student.new('test_student','test_password').save
-  #   Librarian.new('test_librarian','test_password').save
-  # end
 
 end

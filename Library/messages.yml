@@ -12,9 +12,13 @@ email: "Enter Mail :- "
 password: "Enter Password :- "
 student_librarian_message: "Student/Librarian ? :- "
 student_librarian_invalid_message: "Select between Student and Librarian Only."
+login: "Login successful. Welcome, "
+unknown: "Unknown user type."
+invalid_credential: "Invalid credentials. Attempts left:"
+too_many: "Too many failed login attempts. Exiting..."
 
 # =>                        Librarian Messages
-librarian_dashboard: "Logged in as Librarian\n
+librarian_dashboard: " Librarian\n
     1. Create Book.\n
     2. Search Book.\n
     3. All books.\n
