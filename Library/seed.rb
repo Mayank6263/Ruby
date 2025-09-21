@@ -1,8 +1,7 @@
 require_relative "loader"
 require "byebug"
 $books = []
-$alloted_book = []
-$users = []
+$book_allot = []
 
 class Seed
     def self.load_users
