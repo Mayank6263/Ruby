@@ -9,14 +9,23 @@ class Book
   end
 
   def self.all_books
-    puts ""
-    puts " Available Books = #{$books.count} ".center(100,"=")
-    puts "".center(100,'-')
-    puts "Sn."+"Title".center(30) + "Author\n"
-    puts "".center(100,'_')
-    $books.each_with_index { |book, index| puts "#{index+1}- #{book[:title].center(30)} #{book[:author]}" }
-    puts ""
+  puts ""
+  puts " Available Books = #{$books.count} ".center(100, "=").colorize(:cyan)
+  puts "".center(100, '-')
+
+  rows = $books.each_with_index.map do |book, index|
+    [index + 1, book[:title], book[:author].to_s.colorize(:green)]
   end
+
+  table = Terminal::Table.new(
+    title: "Books in Library",
+    headings: ['#', 'Title', 'Author'],
+    rows: rows
+  )
+
+  puts table
+end
+
 
   def self.update_book
      puts Messages::DATA['search']
