@@ -80,16 +80,6 @@ end
       puts "Invalid Digits:- Enter digits between 1-4"
     end
   end
-
-  def self.enrolled_books
-    puts ""
-    puts "#{$book_allot.count} Enrolled Books".center(100,"=")
-    puts "".center(100,'-')
-    puts "Sn." + "Title".center(30) + "Author\n"
-    puts "".center(100,'_')
-    $book_allot.each_with_index { |book, index| puts "#{index+1}- #{book[:title].center(30)} #{book[:author]}" }
-    puts ""
-  end
   
   def self.search_book
     puts "<= Searching =>".center(100,'-')
@@ -179,46 +169,6 @@ end
     end
   end
 
-  def self.enroll_book
-    3.times do |x|
-      print "Enter book title to enroll :- "
-      title = gets.chomp
-      book = $books.find {|x| x[:title]== title}
-       
-      if book.nil?
-        puts Messages::DATA['no_book']
-      else
-        $book_allot << book
-        $books.delete(book)
-        enrolled_books
-        break        
-      end
-    end
-    puts Messages::DATA['enter'].center(100,'-')
-    b = gets.chomp
-    Student.menu if b
- end
-
-  def self.deposit_book
-    3.times do |x|
-      print "Enter book title to deposit :- "
-      title = gets.chomp
-      book = $book_allot.find {|x| x[:title]== title}
-
-      if book.nil?
-        puts Messages::DATA['no_book']
-      else
-        $books << book
-        $book_allot.delete(book)
-        all_books
-        break
-      end
-    end 
-      puts Messages::DATA['enter'].center(100,'-')
-      b = gets.chomp
-      Student.menu if b
-  end
-
   def self.deletebook
     puts Messages::DATA['search']
     way = gets.chomp.gsub(/\D/,"").to_i
@@ -267,4 +217,55 @@ end
       end
     end
   end
+
+  def self.enrolled_books
+    puts ""
+    puts "#{$book_allot.count} Enrolled Books".center(100,"=")
+    puts "".center(100,'-')
+    puts "Sn." + "Title".center(30) + "Author\n"
+    puts "".center(100,'_')
+    $book_allot.each_with_index { |book, index| puts "#{index+1}- #{book[:title].center(30)} #{book[:author]}" }
+    puts ""
+  end
+
+  def self.enroll_book
+    3.times do |x|
+      print "Enter book title to enroll :- "
+      title = gets.chomp
+      book = $books.find {|x| x[:title]== title}
+       
+      if book.nil?
+        puts Messages::DATA['no_book']
+      else
+        $book_allot << book
+        $books.delete(book)
+        enrolled_books
+        break        
+      end
+    end
+    puts Messages::DATA['enter'].center(100,'-')
+    b = gets.chomp
+    Student.menu if b
+ end
+
+  def self.deposit_book
+    3.times do |x|
+      print "Enter book title to deposit :- "
+      title = gets.chomp
+      book = $book_allot.find {|x| x[:title]== title}
+
+      if book.nil?
+        puts Messages::DATA['no_book']
+      else
+        $books << book
+        $book_allot.delete(book)
+        all_books
+        break
+      end
+    end 
+      puts Messages::DATA['enter'].center(100,'-')
+      b = gets.chomp
+      Student.menu if b
+  end
+
 end
